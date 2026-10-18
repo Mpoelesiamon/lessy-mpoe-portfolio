@@ -21,7 +21,7 @@ The `vercel.json` file configures Vercel to serve the `dist` directory without a
 
 Repository: https://github.com/Mpoelesiamon/lessy-mpoe-portfolio
 
-The main branch is connected to the existing Vercel project for automatic production deployments. Push changes to main to publish an update. The site can also be served by any static web host using `dist`.
+The `main` branch is connected to the existing Vercel project for automatic production deployments. Push changes to main to publish an update. The site can also be served by any static web host using `dist`.
 
 ## Content
 
