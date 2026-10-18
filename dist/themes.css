@@ -29,3 +29,17 @@
 [data-theme="dark"] .vloer .cover-arrow{border-color:#b7d4aa80}
 @media(max-width:720px){.header-actions{gap:0}.theme-toggle{min-width:40px;width:40px;padding:7px}.theme-label{display:none}.header nav{gap:19px}.header{gap:12px}.header .wordmark{font-size:28px}}
 @media(max-width:360px){.header nav{gap:12px;font-size:11px}}
+
+/* Portrait and company affiliation */
+.hero-layout{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.8fr);gap:64px;align-items:center;margin-top:38px}
+.hero-copy h1{font-size:clamp(50px,5.8vw,82px);letter-spacing:-3.8px;margin:0 0 30px;line-height:1.06}
+.hero-bottom{display:block}.hero-bottom p{max-width:470px}.hero-bottom .round-link{width:max-content;margin-top:28px}
+.hero-portrait{margin:0}.hero-portrait>img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:center 53%;border-radius:2px}
+.company-signature{display:flex;align-items:center;gap:14px;padding:19px 0 0}.company-logo{display:grid;place-items:center;flex-shrink:0;width:42px;height:48px}.company-logo img{width:100%;height:100%;object-fit:contain}.company-signature strong{display:block;font-size:16px;font-weight:550;letter-spacing:-.3px}.company-signature span>span{display:block;font-size:10px;color:var(--muted);margin-top:2px}.company-arrow{margin-left:auto;color:var(--muted);font-size:20px}.logo-dark{display:none}.hero-foot{margin-top:46px}
+[data-theme="dark"] .logo-light{display:none}[data-theme="dark"] .logo-dark{display:block}
+.footer-credits{display:flex;flex-direction:column;gap:6px;text-align:center}.footer-credits a{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:1100px){.hero-layout{gap:32px}.hero-copy h1{font-size:clamp(48px,6.2vw,68px);letter-spacing:-2.8px}.hero-bottom p{font-size:15px}.company-signature{gap:10px}.company-signature span>span{font-size:9px}}
+@media(max-width:720px){.hero-layout{grid-template-columns:1fr;gap:35px;margin-top:30px}.hero-copy h1{font-size:clamp(43px,8.5vw,65px);letter-spacing:-2px;margin:0 0 24px}.hero-bottom p{max-width:100%}.hero-bottom .round-link{width:100%;margin-top:24px}.hero-portrait{max-width:460px;width:100%;justify-self:center}.hero-portrait>img{aspect-ratio:4/4.5;object-position:center 48%}.company-signature span>span{font-size:10px}.hero-foot{margin-top:32px}.footer-credits{font-size:9px}.footer{gap:16px}}
+@media(max-width:380px){.footer-credits{text-align:left;order:3;width:100%}.footer>a:last-child{margin-left:auto}}
+
+.footer-build,.credit-company{display:flex;align-items:center;justify-content:center;gap:7px}.credit-company .company-logo{width:19px;height:24px}.credit-company{text-decoration:none!important}.credit-company>span:last-child{text-decoration:underline;text-underline-offset:3px}@media(max-width:380px){.footer-build{justify-content:flex-start}}

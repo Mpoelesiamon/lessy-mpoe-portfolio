@@ -28,3 +28,5 @@ The `main` branch is connected to the existing Vercel project for automatic prod
 Descriptions were assembled from the existing portfolio, project documentation, and public GitHub repositories. Collaborative work is labelled separately. Project imagery comes from the corresponding local project assets. No internal source files or business records are included.
 
 The contact link opens the visitor's email app. The copy button uses the browser clipboard with a visible fallback. There is no unconnected contact form.
+
+The hero portrait uses responsive 640px and 1050px WebP files without EXIF metadata. Prospergenics uses its original green logo in light mode and white logo in dark mode.
