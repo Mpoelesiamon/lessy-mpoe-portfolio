@@ -10,7 +10,29 @@
       "has": [
         {
           "type": "host",
-          "value": ".*\\.vercel\\.app"
+          "value": "lessy-mpoe-portfolio.vercel.app"
+        }
+      ],
+      "destination": "https://lesiamon.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "lessy-mpoe-portfolio-finehas-projects.vercel.app"
+        }
+      ],
+      "destination": "https://lesiamon.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "lessy-mpoe-portfolio-git-main-finehas-projects.vercel.app"
         }
       ],
       "destination": "https://lesiamon.com/:path*",
