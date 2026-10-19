@@ -59,7 +59,7 @@ const projects = [
     "links": [
       [
         "Visit portfolio",
-        "https://maximillar-portfolio.vercel.app/"
+        "https://maximillar.lesiamon.com/"
       ],
       [
         "View repository",
