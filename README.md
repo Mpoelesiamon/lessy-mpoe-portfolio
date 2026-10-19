@@ -17,7 +17,7 @@ Run `python3 -m http.server 4173 --directory dist` from this directory, then ope
 
 ## Hosting
 
-The `vercel.json` file configures Vercel to serve the `dist` directory without an installation or build step. Production: https://lessy-mpoe-portfolio.vercel.app
+The `vercel.json` file configures Vercel to serve the `dist` directory without an installation or build step. Production: https://lesiamon.com
 
 Repository: https://github.com/Mpoelesiamon/lessy-mpoe-portfolio
 
