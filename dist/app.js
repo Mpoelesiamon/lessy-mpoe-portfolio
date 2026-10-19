@@ -5,15 +5,19 @@ const more = document.querySelector('#show-more');
 const dialog = document.querySelector('#project-dialog');
 let filter = 'All', expanded = false, lastTrigger;
 const escapeHTML = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const arrowIcon = direction => {
+  const paths = { northeast: 'M5 19 19 5M5 5h14v14', down: 'M12 4v16m-6-6 6 6 6-6', up: 'M12 20V4m-6 6 6-6 6 6' };
+  return `<svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="${paths[direction]}"></path></svg>`;
+};
 function render() {
   const term = search.value.trim().toLowerCase();
   const matching = projects.filter(p => (filter === 'All' ? p.category !== 'Learning' : p.category === filter) && `${p.name} ${p.focus} ${p.stack} ${p.context}`.toLowerCase().includes(term));
   const shown = expanded || term ? matching : matching.slice(0,8);
   count.textContent = `${matching.length} ${filter === 'Learning' ? (matching.length === 1 ? 'repository' : 'repositories') : (matching.length === 1 ? 'project' : 'projects')}`;
-  list.innerHTML = shown.map(p => `<button class="project-row" data-project="${escapeHTML(p.id)}" aria-label="Explore ${escapeHTML(p.name)}"><span class="row-name">${escapeHTML(p.name)}</span><span class="row-focus">${escapeHTML(p.focus)}</span><span class="row-context">${escapeHTML(p.context)}</span><span class="row-arrow" aria-hidden="true">↗</span></button>`).join('');
+  list.innerHTML = shown.map(p => `<button class="project-row" data-project="${escapeHTML(p.id)}" aria-label="Explore ${escapeHTML(p.name)}"><span class="row-name">${escapeHTML(p.name)}</span><span class="row-focus">${escapeHTML(p.focus)}</span><span class="row-context">${escapeHTML(p.context)}</span><span class="row-arrow" aria-hidden="true">${arrowIcon('northeast')}</span></button>`).join('');
   document.querySelector('#empty').hidden = matching.length !== 0;
   more.hidden = matching.length <= 8 || Boolean(term);
-  more.innerHTML = expanded ? 'Show fewer projects <span aria-hidden="true">↑</span>' : `Show all ${matching.length} ${filter === 'Learning' ? 'repositories' : 'projects'} <span aria-hidden="true">↓</span>`;
+  more.innerHTML = expanded ? `Show fewer projects ${arrowIcon('up')}` : `Show all ${matching.length} ${filter === 'Learning' ? 'repositories' : 'projects'} ${arrowIcon('down')}`;
 }
 document.querySelectorAll('[data-filter]').forEach(button => button.addEventListener('click', () => {
   filter = button.dataset.filter; expanded = false;
@@ -28,7 +32,7 @@ document.addEventListener('click', event => {
   const project = projects.find(p => p.id === button.dataset.project);
   if(!project) return;
   lastTrigger = button;
-  document.querySelector('#dialog-body').innerHTML = `<p class="dialog-category">${escapeHTML(project.context)}</p><h2 id="dialog-title">${escapeHTML(project.name)}</h2><p class="dialog-summary">${escapeHTML(project.summary)}</p><dl class="dialog-facts"><div><dt>FOCUS</dt><dd>${escapeHTML(project.focus)}</dd></div><div><dt>PROJECT TECHNOLOGIES</dt><dd>${escapeHTML(project.stack)}</dd></div></dl><p class="dialog-notes">${escapeHTML(project.notes)}</p><div class="dialog-links">${project.links.map(([label,url])=>`<a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(label)} ↗</a>`).join('')}<a href="mailto:mpoelessy839@gmail.com?subject=${encodeURIComponent(`Let's talk about ${project.name}`)}">Discuss this project ↗</a></div>`;
+  document.querySelector('#dialog-body').innerHTML = `<p class="dialog-category">${escapeHTML(project.context)}</p><h2 id="dialog-title">${escapeHTML(project.name)}</h2><p class="dialog-summary">${escapeHTML(project.summary)}</p><dl class="dialog-facts"><div><dt>FOCUS</dt><dd>${escapeHTML(project.focus)}</dd></div><div><dt>PROJECT TECHNOLOGIES</dt><dd>${escapeHTML(project.stack)}</dd></div></dl><p class="dialog-notes">${escapeHTML(project.notes)}</p><div class="dialog-links">${project.links.map(([label,url])=>`<a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(label)} ${arrowIcon('northeast')}</a>`).join('')}<a href="mailto:mpoelessy839@gmail.com?subject=${encodeURIComponent(`Let's talk about ${project.name}`)}">Discuss this project ${arrowIcon('northeast')}</a></div>`;
   dialog.showModal();dialog.scrollTop=0;
 });
 document.querySelector('#close-dialog').addEventListener('click', () => dialog.close());
