@@ -1,0 +1,4 @@
+Contact: mailto:mpoelessy839@gmail.com
+Expires: 2027-04-20T12:00:00Z
+Preferred-Languages: en
+Canonical: https://lesiamon.com/.well-known/security.txt
