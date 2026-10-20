@@ -1,32 +1,36 @@
-# Lessy — Portfolio
+# Lessy: portfolio of Finehas Mpoe
 
-A buildless portfolio for Finehas Lesiamon Mpoe, with featured projects, searchable project notes, a learning archive, light and dark themes, and direct email contact.
+Live at **https://lesiamon.com**. A static site with no build step: everything served is in [`dist/`](dist).
 
-## Edit
+## What is in it
+- An intro, a particle field that reacts to the cursor, and a portrait that turns into live ASCII ("View source").
+- Selected work in a pinned horizontal scroller, with real screenshots of the live sites.
+- A filterable index of every project (type, technology, search), each with a cover image.
+- The 87 practice repositories as a wall of squares, a ⌘K command menu, light and dark themes.
+- Work and personal email with copy-to-clipboard icons, social links, a Nairobi clock.
 
-- `dist/index.html`: page content and featured project covers.
-- `dist/styles.css`: responsive layout, typography, and colours.
-- `dist/projects.js`: project catalogue and links.
-- `dist/app.js`: filtering, search, project dialogs, and email copying.
-- `dist/theme-init.js`, `dist/theme.js`, and `dist/themes.css`: system theme detection, appearance toggle, and saved preference.
-- `dist/assets/`: project imagery and favicon.
+## Run it
+```bash
+npm install
+npm run dev        # http://127.0.0.1:4173
+npm test           # lint, content tests, size budget, browsers, accessibility
+```
 
-## Preview
+## Layout
+| Path | What |
+| --- | --- |
+| `dist/index.html`, `styles.css`, `app.js`, `hero.js` | The page, styles and behaviour |
+| `dist/projects.js` | Every project: copy, stack, links, cover path |
+| `dist/socials.js` | Social links with icons (generated, see `scripts/build-socials.mjs`) |
+| `dist/assets/` | Fonts (self-hosted), portrait, logos, `work/` covers, share card |
+| `scripts/` | Dev server, cover capture, size budget, image and socials generators |
+| `tests/` | `unit` for content, `e2e` for browsers and accessibility |
+| `vercel.json` | Security headers (CSP and more), caching, clean URLs |
 
-Run `python3 -m http.server 4173 --directory dist` from this directory, then open http://localhost:4173.
+## Working on it
+See [CONTRIBUTING.md](CONTRIBUTING.md): branches, checks, pull requests, deploying and rolling back.
 
-## Hosting
-
-The `vercel.json` file configures Vercel to serve the `dist` directory without an installation or build step. Production: https://lesiamon.com
-
-Repository: https://github.com/Mpoelesiamon/lessy-mpoe-portfolio
-
-The `main` branch is connected to the existing Vercel project for automatic production deployments. Push changes to main to publish an update. The site can also be served by any static web host using `dist`.
-
-## Content
-
-Descriptions were assembled from the existing portfolio, project documentation, and public GitHub repositories. Collaborative work is labelled separately. Project imagery comes from the corresponding local project assets. No internal source files or business records are included.
-
-The contact link opens the visitor's email app. The copy button uses the browser clipboard with a visible fallback. There is no unconnected contact form.
-
-The hero portrait uses responsive 640px and 1050px WebP files without EXIF metadata. Prospergenics uses its original green logo in light mode and white logo in dark mode.
+## Notes
+- The contact links are plain `mailto:` links. They also copy the address, in case no mail app is set up.
+- Project screenshots are regenerated with `npm run capture`. Projects without a public site use a designed cover.
+- Repository: https://github.com/Mpoelesiamon/lessy-mpoe-portfolio

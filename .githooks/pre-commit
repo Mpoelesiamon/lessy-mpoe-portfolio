@@ -1,0 +1,4 @@
+#!/bin/sh
+# Runs the fast checks (HTML lint, content tests, size budget) before every commit.
+# Skip in an emergency with: git commit --no-verify
+npm run --silent check || { echo "\nChecks failed. Fix the problems above, or commit with --no-verify if you really must."; exit 1; }
