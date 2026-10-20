@@ -213,3 +213,97 @@ test('every image on the page loads', async ({ page }) => {
   const broken = await page.evaluate(() => [...document.images].filter(i => i.naturalWidth === 0).map(i => i.src));
   expect(broken).toEqual([]);
 });
+
+test.describe('landing screen with the interactive logo', () => {
+  test('appears after the intro, and Enter takes you into the site', async ({ browser }) => {
+    const ctx = await browser.newContext();
+    const page = await ctx.newPage();
+    await page.goto('/');
+    await page.waitForSelector('#boot.stage2', { timeout: 12000 });
+    await expect(page.locator('#logo-canvas')).toBeVisible();
+    await expect(page.locator('#enter')).toBeFocused();
+    await expect(page.locator('main')).toHaveJSProperty('inert', true);      // nothing behind it can be reached yet
+    await page.mouse.move(500, 300); await page.mouse.down(); await page.mouse.up();   // playing with the logo must not skip it
+    await expect(page.locator('#boot')).toBeAttached();
+    await page.keyboard.press('Enter');
+    await expect(page.locator('#boot')).toHaveCount(0, { timeout: 12000 });
+    await expect(page.locator('main')).toHaveJSProperty('inert', false);
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+    await ctx.close();
+  });
+
+  test('is skipped on later visits in the same session, and with reduced motion', async ({ browser }) => {
+    const ctx = await browser.newContext({ reducedMotion: 'reduce' });
+    const page = await ctx.newPage();
+    await page.goto('/');
+    await expect(page.locator('#boot')).toBeHidden();
+    await ctx.close();
+  });
+});
+
+test.describe('fallback pages and friendly addresses', () => {
+  test('an unknown address gets the friendly 404 with a real 404 status', async ({ page }) => {
+    const res = await page.goto('/this-page-does-not-exist');
+    expect(res.status()).toBe(404);
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('doesn’t exist');
+    await expect(page.getByRole('link', { name: 'Take me home' })).toHaveAttribute('href', '/');
+  });
+
+  test('the 404 suggests where you probably meant to go', async ({ page }) => {
+    await page.goto('/wrk');
+    await expect(page.locator('#suggest')).toBeVisible();
+    await expect(page.locator('#suggest-list a', { hasText: 'Work' })).toHaveAttribute('href', '/#work');
+    await page.goto('/vloer-bot');
+    await expect(page.locator('#suggest-list a', { hasText: 'VloerBot' })).toHaveAttribute('href', '/#project=vloer');
+  });
+
+  test('short addresses go to the right section', async ({ page }) => {
+    for (const [from, hash] of [['/work', '#work'], ['/about', '#about'], ['/contact', '#contact'], ['/projects', '#index']]) {
+      await page.goto(from);
+      await expect(page).toHaveURL(new RegExp(`/${hash}$`));
+    }
+  });
+
+  test('social shortcuts redirect to the profile', async ({ request }) => {
+    const res = await request.get('/github', { maxRedirects: 0 });
+    expect(res.status()).toBe(307);
+    expect(res.headers().location).toBe('https://github.com/Mpoelesiamon');
+  });
+
+  test('a project link opens its case notes, and closing clears the address', async ({ page }) => {
+    await page.goto('/projects/rena');
+    const dlg = page.locator('#case');
+    await expect(dlg).toBeVisible();
+    await expect(dlg.getByRole('heading', { name: 'ReNa Farm' })).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(dlg).toBeHidden();
+    await expect.poll(() => new URL(page.url()).hash).toBe('');
+    await page.locator('.tile[data-project="bugatti"]').click();     // opening one writes a shareable address
+    await expect.poll(() => new URL(page.url()).hash).toBe('#project=bugatti');
+  });
+
+  test('a cover that fails to load falls back to the designed cover', async ({ page }) => {
+    await page.route('**/assets/work/rena-640.webp', route => route.abort());
+    await page.goto('/');
+    await page.locator('.tile[data-project="rena"]').scrollIntoViewIfNeeded();     // covers load lazily
+    await expect(page.locator('.tile[data-project="rena"] .tile-fallback')).toBeVisible();
+  });
+});
+
+test.describe('identity icon', () => {
+  test('favicon, app icons and manifest are all served', async ({ request }) => {
+    for (const url of ['/favicon.ico', '/assets/favicon.svg', '/assets/apple-touch-icon.png', '/assets/icons/icon-192.png', '/assets/icons/icon-512.png', '/assets/icons/icon-maskable-512.png']) {
+      const res = await request.get(url); expect(res.ok(), url).toBeTruthy();
+    }
+    const manifest = await (await request.get('/site.webmanifest')).json();
+    expect(manifest.name).toContain('Mpoe');
+    for (const icon of manifest.icons) expect((await request.get(icon.src)).ok(), icon.src).toBeTruthy();
+  });
+
+  test('the page declares its icons', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.locator('link[rel="icon"][type="image/svg+xml"]')).toHaveAttribute('href', 'assets/favicon.svg');
+    await expect(page.locator('link[rel="apple-touch-icon"]')).toHaveAttribute('href', 'assets/apple-touch-icon.png');
+    await expect(page.locator('link[rel="manifest"]')).toHaveAttribute('href', 'site.webmanifest');
+  });
+});

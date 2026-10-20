@@ -71,33 +71,58 @@
   };
   const boot = $('#boot');
   if (boot && !root.classList.contains('booted') && !reduce) {
-    let finished = false;
+    let finished = false, stage2 = false;
     const count = $('.boot-count', boot);
     const DURATION = 2300;
     const t0 = performance.now();
+    const behind = $$('.site-header, main, footer');
+    behind.forEach(el => { el.inert = true; });           // keep keyboard focus and screen readers on the welcome screen
     document.body.style.overflow = 'hidden';
     requestAnimationFrame(() => requestAnimationFrame(() => boot.classList.add('play')));
     const tickCount = now => {
-      if (finished) return;
+      if (finished || stage2) return;
       const k = Math.min(1, (now - t0) / DURATION);
       count.textContent = String(Math.round(k * k * (3 - 2 * k) * 100)).padStart(3, '0');
-      if (k < 1) requestAnimationFrame(tickCount); else finish();
+      if (k < 1) requestAnimationFrame(tickCount); else goLanding();
     };
     requestAnimationFrame(tickCount);
+
+    // Stage two: the interactive logo.
+    function goLanding() {
+      if (finished || stage2) return;
+      if (!window.LessyLanding) { finish(); return; }
+      stage2 = true;
+      count.textContent = '100';
+      boot.classList.add('stage2');
+      window.LessyLanding.start($('#logo-canvas'));
+      $('#enter').focus({ preventScroll: true });
+      window.removeEventListener('keydown', skipIntro); boot.removeEventListener('pointerdown', skipIntro);
+      $('#enter').addEventListener('click', finish);
+      window.addEventListener('keydown', onLandingKey);
+      boot.addEventListener('wheel', onWheel, { passive: true });
+      let ty = null;
+      boot.addEventListener('touchstart', e => { ty = e.touches[0].clientY; }, { passive: true });
+      boot.addEventListener('touchmove', e => { if (ty !== null && ty - e.touches[0].clientY > 70) finish(); }, { passive: true });
+      setTimeout(finish, 9000);                           // nobody is stuck here
+    }
+    const onLandingKey = e => { if (e.key === 'Enter' || e.key === 'Escape' || e.key === ' ') { e.preventDefault(); finish(); } };
+    const onWheel = e => { if (Math.abs(e.deltaY) > 20) finish(); };
+    // Skipping during the intro text goes straight to the site.
+    function skipIntro() { finish(); }
+    window.addEventListener('keydown', skipIntro); boot.addEventListener('pointerdown', skipIntro);
+
     function finish() {
       if (finished) return; finished = true;
-      count.textContent = '100';
       boot.classList.add('done');
       document.body.style.overflow = '';
+      behind.forEach(el => { el.inert = false; });
       try { sessionStorage.setItem('lessy-booted', '1'); } catch {}
       setTimeout(enterHero, 380);
-      setTimeout(() => boot.remove(), 1500);
-      window.removeEventListener('keydown', finish);
-      boot.removeEventListener('pointerdown', finish);
+      setTimeout(() => { window.LessyLanding && window.LessyLanding.stop(); boot.remove(); }, 1500);
+      window.removeEventListener('keydown', skipIntro); window.removeEventListener('keydown', onLandingKey);
+      boot.removeEventListener('pointerdown', skipIntro); boot.removeEventListener('wheel', onWheel);
     }
-    window.addEventListener('keydown', finish);
-    boot.addEventListener('pointerdown', finish);
-    setTimeout(finish, DURATION + 2500);   // failsafe
+    setTimeout(finish, DURATION + 12000);                  // failsafe
   } else {
     requestAnimationFrame(enterHero);
   }
@@ -328,10 +353,10 @@
 
   /* ───────── Case notes drawer ───────── */
   const caseDlg = $('#case'), caseBody = $('#case-body');
-  let lastTrigger = null;
+  let lastTrigger = null, currentId = null;
   function openCase(id, trigger) {
     const p = all.find(x => x.id === id); if (!p) return;
-    lastTrigger = trigger || document.activeElement;
+    lastTrigger = trigger || document.activeElement; currentId = id;
     const next = work[(work.findIndex(x => x.id === id) + 1) % work.length];
     const visual = p.cover
       ? `<img src="${esc(p.cover)}" alt="Screenshot of ${esc(p.name)}" width="1280" height="800">`
@@ -349,6 +374,7 @@
     caseDlg.setAttribute('aria-labelledby', 'case-title');
     caseDlg.scrollTop = 0;
     if (!caseDlg.open) caseDlg.showModal();
+    if (location.hash !== `#project=${id}`) history.replaceState(null, '', `#project=${id}`);
     $('#case-close').focus({ preventScroll: true });
   }
   document.addEventListener('click', e => {
@@ -359,7 +385,22 @@
   });
   $('#case-close').addEventListener('click', () => caseDlg.close());
   caseDlg.addEventListener('click', e => { if (e.target === caseDlg) caseDlg.close(); });
-  caseDlg.addEventListener('close', () => { lastTrigger && lastTrigger.isConnected && lastTrigger.focus({ preventScroll: true }); });
+  caseDlg.addEventListener('close', () => {
+    currentId = null;
+    if (location.hash.startsWith('#project=')) history.replaceState(null, '', location.pathname + location.search);
+    lastTrigger && lastTrigger.isConnected && lastTrigger.focus({ preventScroll: true });
+  });
+  // Shared links and old addresses like /projects/rena arrive as #project=rena.
+  const openFromHash = () => { const m = /^#project=([\w-]+)$/.exec(location.hash); if (m && all.some(p => p.id === m[1]) && currentId !== m[1]) openCase(m[1], null); };
+  window.addEventListener('hashchange', openFromHash);
+  setTimeout(openFromHash, 0);
+  // If a cover ever fails to load, fall back to the designed cover instead of a broken image.
+  document.addEventListener('error', e => {
+    const img = e.target;
+    if (!(img instanceof HTMLImageElement)) return;
+    if (img.closest('.tile-thumb')) { const name = img.closest('.tile').querySelector('.tile-name').textContent; img.replaceWith(Object.assign(document.createElement('span'), { className: 'tile-fallback', textContent: name, ariaHidden: 'true' })); }
+    else if (img.closest('.case-visual')) { img.replaceWith(Object.assign(document.createElement('div'), { className: 'mono-initial', textContent: ($('#case-title') || {}).textContent ? $('#case-title').textContent.trim()[0] : '' })); }
+  }, true);
 
   /* ───────── Command menu (⌘K) ───────── */
   const pal = $('#palette'), palQ = $('#palette-q'), palList = $('#palette-list');

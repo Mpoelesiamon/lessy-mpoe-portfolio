@@ -44,7 +44,7 @@ const projects = [
     "notes": "A gallery website project at persart.nl. The public website currently displays an under-construction page.",
     "links": [
       [
-        "Visit website",
+        "Website (currently offline)",
         "https://persart.nl/"
       ]
     ],

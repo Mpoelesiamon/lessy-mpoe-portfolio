@@ -16,7 +16,8 @@
     "prepare": "git config core.hooksPath .githooks || true",
     "images": "node scripts/make-images.mjs",
     "covers": "node scripts/apply-covers.mjs",
-    "socials": "node scripts/build-socials.mjs"
+    "socials": "node scripts/build-socials.mjs",
+    "links": "node scripts/check-links.mjs"
   },
   "engines": {
     "node": ">=20"

@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 const DIST = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'dist');
 const KB = 1024;
-const LIMITS = { 'index.html': 26 * KB, 'styles.css': 40 * KB, 'app.js': 36 * KB, 'hero.js': 16 * KB, 'projects.js': 70 * KB, 'socials.js': 8 * KB };
+const LIMITS = { 'index.html': 26 * KB, 'styles.css': 40 * KB, 'app.js': 36 * KB, 'hero.js': 16 * KB, 'landing.js': 10 * KB, '404.js': 4 * KB, 'projects.js': 70 * KB, 'socials.js': 8 * KB };
 const IMAGE_LIMIT = 450 * KB;     // any single image
 const TOTAL_LIMIT = 2.6 * 1024 * KB;
 
@@ -46,7 +46,7 @@ const app = await readFile(path.join(DIST, 'app.js'), 'utf8');
 for (const m of app.matchAll(/'(assets\/[^']+)'/g)) if (!files.includes(path.join(DIST, m[1]))) problems.push(`missing file referenced in app.js: ${m[1]}`);
 
 // Nothing in dist/assets may sit there unused (keeps the deploy lean).
-const corpus = (await Promise.all(['index.html', '404.html', 'styles.css', 'app.js', 'hero.js', 'projects.js', 'socials.js', 'theme-init.js'].map(f => readFile(path.join(DIST, f), 'utf8')))).join('\n');
+const corpus = (await Promise.all(['index.html', '404.html', 'styles.css', 'app.js', 'hero.js', 'landing.js', '404.js', 'projects.js', 'socials.js', 'theme-init.js', 'site.webmanifest'].map(f => readFile(path.join(DIST, f), 'utf8')))).join('\n');
 for (const f of files) {
   const rel = path.relative(DIST, f);
   if (!rel.startsWith('assets/') || /^assets\/(og-image\.jpg|apple-touch-icon\.png)$/.test(rel)) continue;

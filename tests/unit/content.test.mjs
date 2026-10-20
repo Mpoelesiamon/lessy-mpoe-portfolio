@@ -97,3 +97,21 @@ test('Jengo is described as a Prospergenics project with its tools', () => {
   for (const n of ['JengoWork', 'JengoMail', 'JengoAGI', 'Jengo Cloud Workspace', 'Jengo Meet']) assert.ok(names.includes(n), `missing tool: ${n}`);
   for (const t of j.tools) assert.ok(t.text && t.text.length > 20, `tool ${t.name} has no description`);
 });
+
+test('the web manifest only points at icons that exist', async () => {
+  const { access } = await import('node:fs/promises');
+  const manifest = JSON.parse(await readFile(path.join(DIST, 'site.webmanifest'), 'utf8'));
+  assert.ok(manifest.icons.length >= 3);
+  for (const i of manifest.icons) await access(path.join(DIST, i.src));
+  await access(path.join(DIST, 'favicon.ico'));
+});
+
+test('every redirect in vercel.json lands on a real section or project', async () => {
+  const cfg = JSON.parse(await readFile(path.join(DIST, '..', 'vercel.json'), 'utf8'));
+  const ids = ['work', 'index', 'journey', 'about', 'contact'];
+  for (const r of cfg.redirects) {
+    const m = /^\/#([a-z]+)$/.exec(r.destination);
+    if (m) assert.ok(ids.includes(m[1]) && html.includes(`id="${m[1]}"`), `redirect ${r.source} points at a missing section ${r.destination}`);
+    else assert.match(r.destination, /^(https:\/\/|\/#project=:id$|\/$)/, `odd redirect target: ${r.destination}`);
+  }
+});

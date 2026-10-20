@@ -25,7 +25,13 @@ npx playwright install chromium
 | `npm run capture` | Re-capture project cover screenshots from the live sites (then `npm run covers`) |
 | `npm run covers` | Write each project's cover path into `dist/projects.js` |
 | `npm run socials` | Rebuild `dist/socials.js` from `scripts/build-socials.mjs` |
-| `npm run images` | Regenerate the share card (`og-image.jpg`) and the app icon |
+| `npm run images` | Regenerate the share card (`og-image.jpg`) and the whole icon set (favicon, `.ico`, app icons) |
+| `npm run links` | Check every external link on the site (also runs weekly in GitHub Actions) |
+
+## Addresses and fallbacks
+- Unknown addresses get `dist/404.html`, which suggests close matches (see `dist/404.js`).
+- Short addresses and social shortcuts live in `vercel.json` under `redirects`. A test checks they land somewhere real.
+- `#project=<id>` opens a project's case notes, so any project can be linked to directly.
 
 ## Branch names
 `fix/short-name` for something broken, `feat/short-name` for something new, `content/short-name` for words or images, `chore/short-name` for tooling.

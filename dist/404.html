@@ -3,24 +3,41 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Page not found — Lessy</title>
+  <title>Page not found – Lessy</title>
   <meta name="robots" content="noindex">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <script src="/theme-init.js"></script>
   <link rel="stylesheet" href="/styles.css">
   <style>
-    .nf{min-height:100svh;display:grid;place-content:center;gap:18px;padding:var(--gut);text-align:left}
-    .nf .big{font-size:clamp(6rem,26vw,20rem);font-weight:800;letter-spacing:-.06em;line-height:.8;color:var(--accent)}
-    .nf p{font-size:clamp(1.1rem,2vw,1.6rem);max-width:24em}
-    .nf .btn{justify-self:start}
+    .nf{min-height:100svh;display:flex;flex-direction:column;justify-content:center;gap:18px;padding:clamp(24px,6vw,72px) var(--gut);max-width:1100px;margin-inline:auto}
+    .nf .big{font-size:clamp(7rem,28vw,20rem);font-weight:800;letter-spacing:-.06em;line-height:.8;color:var(--accent)}
+    .nf h1{font-size:clamp(2rem,5vw,4rem);letter-spacing:-.04em}
+    .nf p{font-size:clamp(1.05rem,1.6vw,1.35rem);color:var(--muted);max-width:30em}
+    .nf-suggest ul{display:flex;flex-wrap:wrap;gap:10px;list-style:none;padding:0;margin:12px 0 0}
+    .nf-suggest a{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border:1.5px solid color-mix(in srgb,var(--ink) 55%,transparent);border-radius:999px;text-decoration:none;font-weight:600;transition:background .2s,color .2s}
+    .nf-suggest a:hover{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+    .nf-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
   </style>
 </head>
 <body>
-  <main class="nf">
+  <main class="nf" id="main">
+    <a class="wordmark" href="/" aria-label="Lessy, home">lessy<i>.</i></a>
     <span class="big" aria-hidden="true">404</span>
     <h1>That page doesn’t exist.</h1>
-    <p>The link may be old, or I may have moved things around. The good stuff is on the home page.</p>
-    <a class="btn btn-primary" href="/">Take me home</a>
+    <p>The link may be old, or I may have moved things around. Everything lives on the home page.</p>
+    <div class="nf-suggest" id="suggest" hidden>
+      <p>Were you looking for one of these?</p>
+      <ul id="suggest-list"></ul>
+    </div>
+    <div class="nf-links">
+      <a class="btn btn-primary" href="/">Take me home</a>
+      <a class="btn btn-ghost" href="/#work">See the work</a>
+      <a class="btn btn-ghost" href="/#contact">Get in touch</a>
+    </div>
   </main>
+  <script src="/projects.js"></script>
+  <script src="/404.js"></script>
 </body>
 </html>
