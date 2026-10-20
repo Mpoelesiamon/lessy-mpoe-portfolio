@@ -111,6 +111,19 @@ test('command menu opens with Ctrl+K, filters, and opens a project', async ({ pa
   await expect(page.locator('#case').getByRole('heading', { name: 'VloerBot' })).toBeVisible();
 });
 
+test('light is the default theme, even when the visitor\'s system prefers dark', async ({ browser }) => {
+  const ctx = await browser.newContext({ colorScheme: 'dark' });
+  const page = await ctx.newPage();
+  await page.addInitScript(() => { try { sessionStorage.setItem('lessy-booted', '1'); } catch {} });
+  await page.goto('/');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#f5f1ea');
+  await page.locator('#theme-toggle').click();                 // choosing dark is remembered
+  await page.reload();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  await ctx.close();
+});
+
 test('theme toggle switches and persists across reloads', async ({ page }) => {
   await page.goto('/');
   const before = await page.locator('html').getAttribute('data-theme');

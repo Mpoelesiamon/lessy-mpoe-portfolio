@@ -29,9 +29,6 @@
   /* ───────── Theme ───────── */
   const themeBtn = $('#theme-toggle');
   const meta = $('meta[name="theme-color"]');
-  const system = window.matchMedia('(prefers-color-scheme: dark)');
-  let userChose = false;
-  try { userChose = ['light', 'dark'].includes(localStorage.getItem('lessy-theme')); } catch {}
   function applyTheme(theme) {
     root.dataset.theme = theme; root.style.colorScheme = theme;
     themeBtn.setAttribute('aria-pressed', String(theme === 'dark'));
@@ -40,12 +37,11 @@
   }
   const toggleTheme = () => {
     const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
-    userChose = true; try { localStorage.setItem('lessy-theme', next); } catch {}
+    try { localStorage.setItem('lessy-theme', next); } catch {}
     applyTheme(next);
   };
   applyTheme(root.dataset.theme);
   themeBtn.addEventListener('click', toggleTheme);
-  system.addEventListener('change', e => { if (!userChose) applyTheme(e.matches ? 'dark' : 'light'); });
 
   /* ───────── Word-split headings ───────── */
   function split(el) {

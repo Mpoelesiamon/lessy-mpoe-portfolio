@@ -2,7 +2,7 @@
   const root = document.documentElement;
   let saved;
   try { saved = localStorage.getItem('lessy-theme'); } catch {}
-  const dark = saved === 'dark' || (saved !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  const dark = saved === 'dark';                     // light is the default; dark only if the visitor chose it
   root.dataset.theme = dark ? 'dark' : 'light';
   root.style.colorScheme = dark ? 'dark' : 'light';
   root.classList.replace('no-js', 'js');
