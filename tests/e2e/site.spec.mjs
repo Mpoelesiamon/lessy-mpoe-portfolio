@@ -254,14 +254,16 @@ test.describe('fallback pages and friendly addresses', () => {
     await expect(page.locator('#suggest')).toBeVisible();
     await expect(page.locator('#suggest-list a', { hasText: 'Work' })).toHaveAttribute('href', '/#work');
     await page.goto('/vloer-bot');
-    await expect(page.locator('#suggest-list a', { hasText: 'VloerBot' })).toHaveAttribute('href', '/#project=vloer');
+    await expect(page.locator('#suggest-list a', { hasText: 'VloerBot' })).toHaveAttribute('href', '/projects/vloer');
   });
 
   test('short addresses go to the right section', async ({ page }) => {
-    for (const [from, hash] of [['/work', '#work'], ['/about', '#about'], ['/contact', '#contact'], ['/projects', '#index']]) {
+    for (const [from, hash] of [['/work', '#work'], ['/journey', '#journey'], ['/practice', '#journey']]) {
       await page.goto(from);
       await expect(page).toHaveURL(new RegExp(`/${hash}$`));
     }
+    await page.goto('/cv');
+    await expect(page).toHaveURL(/\/about$/);
   });
 
   test('social shortcuts redirect to the profile', async ({ request }) => {
@@ -271,7 +273,7 @@ test.describe('fallback pages and friendly addresses', () => {
   });
 
   test('a project link opens its case notes, and closing clears the address', async ({ page }) => {
-    await page.goto('/projects/rena');
+    await page.goto('/#project=rena');
     const dlg = page.locator('#case');
     await expect(dlg).toBeVisible();
     await expect(dlg.getByRole('heading', { name: 'ReNa Farm' })).toBeVisible();

@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/serve.mjs",
-    "lint": "html-validate dist/index.html",
+    "lint": "html-validate \"dist/**/*.html\"",
     "test:unit": "node --test \"tests/unit/*.test.mjs\"",
     "test:e2e": "playwright test",
     "budget": "node scripts/budget.mjs",
@@ -17,7 +17,9 @@
     "images": "node scripts/make-images.mjs",
     "covers": "node scripts/apply-covers.mjs",
     "socials": "node scripts/build-socials.mjs",
-    "links": "node scripts/check-links.mjs"
+    "links": "node scripts/check-links.mjs",
+    "pages": "node scripts/build-pages.mjs",
+    "indexnow": "node scripts/indexnow.mjs"
   },
   "engines": {
     "node": ">=20"

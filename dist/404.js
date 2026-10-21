@@ -9,9 +9,9 @@
     x.forEach((n, g) => { hits += Math.min(n, y.get(g) || 0); total += n; }); y.forEach(n => { total += n; });
     return total ? (2 * hits) / total : 0;
   };
-  const pages = [['Work', '/#work'], ['All projects', '/#index'], ['Practice', '/#journey'], ['About', '/#about'], ['Contact', '/#contact'], ['Home', '/']];
+  const pages = [['Work', '/#work'], ['All projects', '/projects'], ['About Lessy', '/about'], ['Services', '/services'], ['FAQ', '/faq'], ['Contact', '/contact'], ['Practice', '/#journey'], ['Privacy policy', '/privacy'], ['Home', '/']];
   const all = typeof projects !== 'undefined' ? projects : [];
-  const candidates = [...pages, ...all.filter(p => p.category !== 'Learning').map(p => [p.name, `/#project=${p.id}`])];
+  const candidates = [...pages, ...all.filter(p => p.category !== 'Learning').map(p => [p.name, `/projects/${p.id}`])];
   const words = typed.split(' ');
   const scored = candidates.map(([label, href]) => {
     const l = norm(label);
