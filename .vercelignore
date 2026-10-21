@@ -1,3 +1,15 @@
+node_modules
+tests
+test-results
+playwright-report
+scripts
+.github
+.githooks
+.claude
 .env*
 .openai
 README.md
+CONTRIBUTING.md
+lighthouserc.json
+playwright.config.mjs
+.htmlvalidate.json

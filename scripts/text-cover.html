@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><style>
+@font-face{font-family:B;src:url(../dist/assets/fonts/bricolage.woff2);font-weight:200 800;font-stretch:75% 100%}
+*{margin:0;box-sizing:border-box}
+body{width:1280px;height:800px;display:grid;place-items:center;font-family:B,sans-serif;overflow:hidden}
+h1{font-size:230px;font-weight:760;font-stretch:100%;letter-spacing:.005em;line-height:1}
+</style></head><body><h1 id="t"></h1>
+<script>
+const q=new URLSearchParams(location.search);
+document.body.style.background=q.get('bg')||'#000';
+const t=document.getElementById('t');t.textContent=q.get('text')||'';t.style.color=q.get('color')||'#fff';
+if(q.get('suffix')){const s=document.createElement('span');s.textContent=q.get('suffix');s.style.color=q.get('suffixColor')||'#fff';t.appendChild(s);}
+</script></body></html>

@@ -6,14 +6,15 @@ const projects = [
     "focus": "Automotive heritage & registry",
     "context": "Client / team contribution",
     "stack": "Web design, WordPress, React",
-    "summary": "A digital home for Bugatti heritage, vehicle records, and collection discovery.",
-    "notes": "Website and interface work connecting historical storytelling with structured vehicle information, chassis search, and collection browsing.",
+    "summary": "A website for Bugatti history, vehicle records and browsing the collection.",
+    "notes": "Website and interface work that joins the history with structured vehicle data, including chassis search and collection browsing.",
     "links": [
       [
         "Visit website",
         "https://bugattiinsights.com/"
       ]
-    ]
+    ],
+    "cover": "assets/work/bugatti.webp"
   },
   {
     "id": "prosper",
@@ -29,7 +30,8 @@ const projects = [
         "Visit website",
         "https://prospergenics.com/"
       ]
-    ]
+    ],
+    "cover": "assets/work/prosper.webp"
   },
   {
     "id": "persart",
@@ -42,10 +44,11 @@ const projects = [
     "notes": "A gallery website project at persart.nl. The public website currently displays an under-construction page.",
     "links": [
       [
-        "Visit website",
+        "Website (currently offline)",
         "https://persart.nl/"
       ]
-    ]
+    ],
+    "cover": "assets/work/persart.webp"
   },
   {
     "id": "maximillar",
@@ -65,18 +68,58 @@ const projects = [
         "View repository",
         "https://github.com/Mpoelesiamon/Max"
       ]
-    ]
+    ],
+    "cover": "assets/work/maximillar.webp"
   },
   {
     "id": "jengo",
     "name": "Jengo",
     "category": "AI",
-    "focus": "AI agents, applications & workflows",
-    "context": "Company / team contribution",
-    "stack": "AI agents, React, TypeScript, .NET",
-    "summary": "Collaborative work within an ecosystem of AI agents, software tools, and connected workflows.",
-    "notes": "The wider Jengo project connects agent-assisted tasks, application interfaces, reusable components, and workflow tools. My portfolio includes this as team project experience.",
-    "links": []
+    "focus": "A family of AI tools for work, email, meetings and agents",
+    "context": "Prospergenics project",
+    "stack": "AI agents, React, TypeScript, .NET, Node.js",
+    "summary": "Jengo is a Prospergenics project: a family of AI-assisted tools we have built as a team, from task boards and email to meetings, voice and autonomous agents.",
+    "notes": "Each tool does one job and they work together. Meeting actions can be filed straight onto a JengoWork board, and the AI features ask for approval before they act. These are the tools built so far.",
+    "links": [],
+    "cover": "assets/work/jengo.webp",
+    "tools": [
+      {
+        "name": "JengoWork",
+        "text": "A self-hosted task manager with kanban boards, configurable lanes and several people per task. It replaces ClickUp for the team."
+      },
+      {
+        "name": "JengoMail",
+        "text": "A web email tool with several IMAP accounts, folders and rules, plus an AI assistant whose actions always need your approval."
+      },
+      {
+        "name": "JengoAGI",
+        "text": "An autonomous agent orchestration dashboard that watches the work and hands tasks to AI agents."
+      },
+      {
+        "name": "Jengo Cloud Workspace",
+        "text": "A personal, always-on AI computer in the cloud for each customer, with Claude Code preinstalled, controlled from a browser or a phone."
+      },
+      {
+        "name": "Jengo Meet",
+        "text": "A meeting assistant that runs in the browser, transcribes live and answers to “Hey Jengo”. It pulls out decisions and action items, each linked to the moment it was said."
+      },
+      {
+        "name": "Jengo Desktop",
+        "text": "A Windows search-style launcher (Win+J) for a personal AI that chats and works on tasks in the background."
+      },
+      {
+        "name": "Jengo Voice",
+        "text": "A voice system for talking to Jengo, with a guide for adding it to any web app."
+      },
+      {
+        "name": "Jengo Components",
+        "text": "A shared component library and project scaffolding used across all Jengo tools."
+      },
+      {
+        "name": "Jengo Starter",
+        "text": "A React, Vite and .NET starter template for new Jengo projects."
+      }
+    ]
   },
   {
     "id": "nashipae",
@@ -92,7 +135,8 @@ const projects = [
         "Visit website",
         "https://nashipaeculturaloasis.com/"
       ]
-    ]
+    ],
+    "cover": "assets/work/nashipae.webp"
   },
   {
     "id": "brand",
@@ -112,7 +156,8 @@ const projects = [
         "brand2boost.nl — currently unavailable",
         "https://brand2boost.nl/"
       ]
-    ]
+    ],
+    "cover": "assets/work/brand.webp"
   },
   {
     "id": "art",
@@ -128,7 +173,8 @@ const projects = [
         "Visit website",
         "https://artrevisionist.com/"
       ]
-    ]
+    ],
+    "cover": "assets/work/art.webp"
   },
   {
     "id": "rena",
@@ -137,8 +183,8 @@ const projects = [
     "focus": "Website & management platform",
     "context": "Personal / client project",
     "stack": "HTML, CSS, JavaScript, Next.js, Supabase",
-    "summary": "A connected web presence and operational platform for a livestock and fodder farm in Kenya.",
-    "notes": "The public website brings products, livestock, farm information, and enquiries into one place. The connected management application extends the work into farm records and day-to-day operations. This project brings interface design and software development together around a real working environment.",
+    "summary": "A public website and a management app for a livestock and fodder farm in Kenya.",
+    "notes": "The website covers the farm’s products, livestock and enquiries. The management app handles farm records and the day-to-day running of the place. It is the project where design and software come together for a real, working business.",
     "links": [
       [
         "Public website",
@@ -148,7 +194,8 @@ const projects = [
         "Website source",
         "https://github.com/Mpoelesiamon/Rena.Farm"
       ]
-    ]
+    ],
+    "cover": "assets/work/rena.webp"
   },
   {
     "id": "perridon",
@@ -157,9 +204,10 @@ const projects = [
     "focus": "Collection browsing & presentation",
     "context": "Client / team contribution",
     "stack": "React, TypeScript, Framer Motion, internationalization",
-    "summary": "A digital gallery experience designed around discovery, imagery, and the character of a collection.",
-    "notes": "The gallery work explores collection browsing, detailed item views, responsive layouts, and multilingual presentation. A companion React-to-WordPress approach connects modern interfaces with familiar content management.",
-    "links": []
+    "summary": "A gallery website built around browsing a collection and looking closely at each piece.",
+    "notes": "Covers collection browsing, detailed item pages, responsive layouts and several languages. A React-to-WordPress approach connects the interface to a content system people already know how to use.",
+    "links": [],
+    "cover": "assets/work/perridon.webp"
   },
   {
     "id": "vloer",
@@ -168,8 +216,8 @@ const projects = [
     "focus": "Conversational customer assistance",
     "context": "Public repository",
     "stack": "React, TypeScript, Gemini, Supabase",
-    "summary": "An AI chat widget that helps flooring customers ask questions and explore their options.",
-    "notes": "The widget supports streamed responses, image and document uploads, and multilingual conversations. The interface is designed to sit within a company website and make product, installation, maintenance, and styling advice easier to access.",
+    "summary": "An AI chat widget that lets flooring customers ask questions and explore their options.",
+    "notes": "It streams answers, accepts image and document uploads, and works in several languages. It is built to sit inside a company website and make advice on products, installation, maintenance and styling easy to get.",
     "links": [
       [
         "View repository",
@@ -186,7 +234,8 @@ const projects = [
     "stack": "C#, .NET, LLM integrations",
     "summary": "A framework that connects .NET applications with multiple AI providers.",
     "notes": "The broader project includes provider abstractions, retrieval, caching, and orchestration.",
-    "links": []
+    "links": [],
+    "cover": "assets/work/hazina.webp"
   },
   {
     "id": "trndy",
@@ -199,10 +248,11 @@ const projects = [
     "notes": "The pipeline connects song sourcing, background selection, timed lyrics, video rendering, an approval step, and YouTube uploads. It brings creative media work and workflow engineering into one repeatable process.",
     "links": [
       [
-        "Visit channel",
-        "https://youtube.com/@trendlyrics"
+        "Watch on YouTube",
+        "https://www.youtube.com/@trendlyrics"
       ]
-    ]
+    ],
+    "cover": "assets/work/trndy.webp"
   },
   {
     "id": "vera",
@@ -213,7 +263,8 @@ const projects = [
     "stack": ".NET, Vue / Quasar, SQL Server",
     "summary": "A multi-tier application with web interfaces and a .NET backend.",
     "notes": "Included as client and team project experience spanning application interfaces and backend integration.",
-    "links": []
+    "links": [],
+    "cover": "assets/work/vera.webp"
   },
   {
     "id": "ai-explorer",
@@ -251,7 +302,8 @@ const projects = [
     "stack": "React, TypeScript, Tailwind CSS",
     "summary": "An image-led gallery application for exploring artwork and collections.",
     "notes": "Collaborative gallery work focused on collection presentation, responsive interfaces, and browsing experiences.",
-    "links": []
+    "links": [],
+    "cover": "assets/work/opus.webp"
   },
   {
     "id": "bridge",
@@ -262,7 +314,8 @@ const projects = [
     "stack": "React, WordPress, PHP, REST APIs",
     "summary": "A bridge between React gallery interfaces and WordPress content management.",
     "notes": "The project connects gallery, artist, artwork, and exhibition content with a modern front end. The goal is to preserve a familiar editing workflow while supporting a custom interface.",
-    "links": []
+    "links": [],
+    "cover": "assets/work/bridge.webp"
   },
   {
     "id": "grafo",
@@ -273,7 +326,8 @@ const projects = [
     "stack": "React, TypeScript, Supabase",
     "summary": "A storytelling platform with writing, reading, and social interaction interfaces.",
     "notes": "The wider platform includes a story editor, author dashboard, and reader interactions.",
-    "links": []
+    "links": [],
+    "cover": "assets/work/grafo.webp"
   },
   {
     "id": "sprout",
@@ -284,7 +338,8 @@ const projects = [
     "stack": "React, TypeScript, Tailwind CSS",
     "summary": "A recruitment platform connecting people and opportunities in the agrifood sector.",
     "notes": "Collaborative interface work on a recruitment-focused web platform.",
-    "links": []
+    "links": [],
+    "cover": "assets/work/sprout.webp"
   },
   {
     "id": "devgenix",
@@ -316,7 +371,8 @@ const projects = [
         "View repository",
         "https://github.com/Mpoelesiamon/JohnyClean"
       ]
-    ]
+    ],
+    "cover": "assets/work/johny.webp"
   },
   {
     "id": "autopedia",

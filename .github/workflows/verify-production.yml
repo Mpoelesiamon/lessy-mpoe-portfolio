@@ -1,0 +1,31 @@
+name: Verify production
+
+# After a merge to main, Vercel deploys lesiamon.com. This waits, then checks the live site.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for the Vercel deployment to go live
+        run: sleep 120
+      - name: Check the live site
+        run: |
+          set -e
+          base=https://lesiamon.com
+          code() { curl -s -o /dev/null -w '%{http_code}' -L "$1"; }
+          [ "$(code $base/)" = 200 ] || { echo "home page is not 200"; exit 1; }
+          curl -s "$base/" | grep -q "Finehas" || { echo "home page content missing"; exit 1; }
+          [ "$(code $base/.well-known/security.txt)" = 200 ] || { echo "security.txt missing"; exit 1; }
+          [ "$(code $base/robots.txt)" = 200 ] || { echo "robots.txt missing"; exit 1; }
+          [ "$(code $base/assets/og-image.jpg)" = 200 ] || { echo "share image missing"; exit 1; }
+          curl -sI "$base/" | grep -qi '^content-security-policy:' || { echo "CSP header missing"; exit 1; }
+          [ "$(code $base/definitely-not-a-page)" = 404 ] || { echo "404 page is not returning 404"; exit 1; }
+          for sub in maximillar.lesiamon.com; do [ "$(code https://$sub/)" = 200 ] || { echo "$sub is down"; exit 1; }; done
+          echo "Production looks healthy."

@@ -1,0 +1,15 @@
+{
+  "extends": ["html-validate:recommended"],
+  "rules": {
+    "no-inline-style": "off",
+    "no-trailing-whitespace": "off",
+    "void-style": "off",
+    "attribute-boolean-style": "off",
+    "element-permitted-content": "warn",
+    "prefer-native-element": ["error", { "exclude": ["listitem", "list", "listbox"] }],
+    "aria-label-misuse": "warn",
+    "no-redundant-role": "off",
+    "wcag/h30": "off",
+    "heading-level": "warn"
+  }
+}
