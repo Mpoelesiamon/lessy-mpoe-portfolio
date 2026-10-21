@@ -103,7 +103,7 @@
       let ty = null;
       boot.addEventListener('touchstart', e => { ty = e.touches[0].clientY; }, { passive: true });
       boot.addEventListener('touchmove', e => { if (ty !== null && ty - e.touches[0].clientY > 70) finish(); }, { passive: true });
-      setTimeout(finish, 9000);                           // nobody is stuck here
+      setTimeout(finish, 6000);                           // nobody is stuck here
     }
     const onLandingKey = e => { if (e.key === 'Enter' || e.key === 'Escape' || e.key === ' ') { e.preventDefault(); finish(); } };
     const onWheel = e => { if (Math.abs(e.deltaY) > 20) finish(); };

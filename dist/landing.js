@@ -11,28 +11,30 @@
     colors = [cs.getPropertyValue('--ink').trim() || colors[0], cs.getPropertyValue('--accent').trim() || colors[1]];
   };
 
+  // Sampling happens at CSS-pixel resolution (a fraction of the device pixels), then positions are scaled up.
   function sample() {
-    const off = document.createElement('canvas'); off.width = W; off.height = H;
+    const cw = Math.max(1, Math.round(W / dpr)), ch = Math.max(1, Math.round(H / dpr));
+    const off = document.createElement('canvas'); off.width = cw; off.height = ch;
     const c = off.getContext('2d', { willReadFrequently: true });
-    const fs = Math.min(W * 0.37, H * 0.62);
+    const fs = Math.min(cw * 0.37, ch * 0.62);
     c.font = `800 ${fs}px "Bricolage Grotesque", system-ui, sans-serif`;
     try { c.letterSpacing = `${-fs * 0.045}px`; } catch {}
     const word = 'lessy', dot = '.';
     const wW = c.measureText(word).width, dW = c.measureText(dot).width;
-    const x0 = (W - (wW + dW)) / 2, base = H / 2 + fs * 0.3;
-    const gap = Math.max(3, Math.round(fs / 60));
-    size = Math.max(2, gap * 0.66);                       // device pixels, leaving a little air between particles
+    const x0 = (cw - (wW + dW)) / 2, base = ch / 2 + fs * 0.3;
+    const gap = Math.max(4, Math.round(fs / 46));                // a few thousand particles at most, fewer on phones
+    size = Math.max(2, gap * 0.66 * dpr);
     const out = [];
     const read = (text, x, group) => {
-      c.clearRect(0, 0, W, H); c.fillStyle = '#000'; c.fillText(text, x, base);
-      const d = c.getImageData(0, 0, W, H).data;
-      for (let y = 0; y < H; y += gap) for (let xx = 0; xx < W; xx += gap) if (d[(y * W + xx) * 4 + 3] > 128) out.push([xx, y, group]);
+      c.clearRect(0, 0, cw, ch); c.fillStyle = '#000'; c.fillText(text, x, base);
+      const d = c.getImageData(0, 0, cw, ch).data;
+      for (let y = 0; y < ch; y += gap) for (let xx = 0; xx < cw; xx += gap) if (d[(y * cw + xx) * 4 + 3] > 128) out.push([xx * dpr, y * dpr, group]);
     };
     read(word, x0, 0); read(dot, x0 + wW, 1);
     const cx = W / 2, cy = H / 2;
     parts = out.map(([hx, hy, g]) => {
-      const a = Math.random() * Math.PI * 2, r = (Math.max(W, H) * (0.5 + Math.random() * 0.7));
-      return { hx, hy, g, x: cx + Math.cos(a) * r, y: cy + Math.sin(a) * r, vx: 0, vy: 0, ph: Math.random() * 6.28 };
+      const a = Math.random() * Math.PI * 2, r = Math.max(W, H) * (0.5 + Math.random() * 0.7);
+      return { hx, hy, g, x: cx + Math.cos(a) * r, y: cy + Math.sin(a) * r, vx: 0, vy: 0 };
     });
   }
 
@@ -45,12 +47,14 @@
 
   function frame(now) {
     if (!running) return;
+    if (document.hidden) { raf = requestAnimationFrame(frame); return; }
     t = now;
     ctx.clearRect(0, 0, W, H);
     const R = 120 * dpr, R2 = R * R, mx = pointer.x * dpr, my = pointer.y * dpr;
+    const bx = Math.sin(t * .0016) * .9 * dpr, by = Math.cos(t * .0013) * .9 * dpr;   // the whole logo drifts a little
     const groups = [[], []];
     for (const p of parts) {
-      const hx = p.hx + Math.sin(t * .0016 + p.ph) * .7 * dpr, hy = p.hy + Math.cos(t * .0013 + p.ph) * .7 * dpr;   // slight breathing
+      const hx = p.hx + bx, hy = p.hy + by;
       p.vx += (hx - p.x) * .05; p.vy += (hy - p.y) * .05;
       const dx = p.x - mx, dy = p.y - my, d2 = dx * dx + dy * dy;
       if (d2 < R2 && d2 > 1) { const d = Math.sqrt(d2), f = (1 - d / R) ** 2 * 11 * dpr; p.vx += dx / d * f; p.vy += dy / d * f; }

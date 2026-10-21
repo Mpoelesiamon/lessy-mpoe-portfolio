@@ -12,7 +12,7 @@
   const mouse = { x: -9999, y: -9999, on: false, cx: -9999, cy: -9999 };
   const coarse = window.matchMedia('(pointer:coarse)').matches;
 
-  let W = 0, H = 0, dpr = 1, parts = [], running = false, raf = 0, t = 0, visible = true;
+  let W = 0, H = 0, dpr = 1, parts = [], running = false, raf = 0, t = 0, visible = true, active = false;
   let bg = '10,10,15', ca = '255,106,43', cb = '110,150,255';
 
   const rand = (a, b) => a + Math.random() * (b - a);
@@ -36,10 +36,10 @@
 
   function resize() {
     const r = hero.getBoundingClientRect();
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    dpr = Math.min(window.devicePixelRatio || 1, coarse ? 1 : 2);        // half the pixels to paint on phones
     W = canvas.width = Math.max(1, Math.round(r.width * dpr));
     H = canvas.height = Math.max(1, Math.round(r.height * dpr));
-    const density = (r.width < 700 || coarse) ? 1100 : 620;
+    const density = (r.width < 700 || coarse) ? 1800 : 620;      // far fewer particles on phones
     const n = Math.min(2600, Math.round((r.width * r.height) / density));
     parts = Array.from({ length: n }, () => seed({}, true));
     readColors();
@@ -94,13 +94,13 @@
   /* kinetic wordmark: weight / width follow proximity to the cursor (idle wave otherwise) */
   function animateName() {
     if (!letters.length) return;
-    letters.forEach((el, i) => {
-      const r = el.getBoundingClientRect();
+    const rects = letters.map(el => el.getBoundingClientRect());      // all reads first
+    letters.forEach((el, i) => {                                       // then all writes
+      const r = rects[i];
       let p = 0;
       if (mouse.on) {
         const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-        const d = Math.hypot(mouse.cx - cx, mouse.cy - cy);
-        p = Math.max(0, 1 - d / (r.width * 2.1));
+        p = Math.max(0, 1 - Math.hypot(mouse.cx - cx, mouse.cy - cy) / (r.width * 2.1));
       }
       const idle = (.5 + .5 * Math.sin(t * .0016 + i * .85)) * .28;
       const v = Math.min(1, p + idle);
@@ -117,7 +117,7 @@
     animateName();
     raf = requestAnimationFrame(loop);
   }
-  const start = () => { if (!running && !reduce && visible && !document.hidden) { running = true; raf = requestAnimationFrame(loop); } };
+  const start = () => { if (!running && !reduce && visible && active && !document.hidden) { running = true; raf = requestAnimationFrame(loop); } };
   const stop = () => { running = false; cancelAnimationFrame(raf); };
 
   new IntersectionObserver(([e]) => { visible = e.isIntersecting; visible ? start() : stop(); }, { threshold: 0 }).observe(hero);
@@ -144,8 +144,14 @@
     }
   });
 
-  resize();
-  if (!reduce) start();
+  // The field sits behind the intro on a first visit, so wait until the site is shown, then start when idle.
+  const idle = fn => ('requestIdleCallback' in window ? requestIdleCallback(fn, { timeout: 1500 }) : setTimeout(fn, 200));
+  const afterIntro = fn => {
+    if (reduce || root.classList.contains('ready') || root.classList.contains('booted')) { idle(fn); return; }
+    const mo = new MutationObserver(() => { if (root.classList.contains('ready')) { mo.disconnect(); idle(fn); } });
+    mo.observe(root, { attributes: true, attributeFilter: ['class'] });
+  };
+  afterIntro(() => { active = true; resize(); start(); });
 
   /* ───────── Portrait lens: reveal the photo as live ASCII ───────── */
   const frame = document.querySelector('.portrait-frame');
@@ -239,7 +245,7 @@
   });
 
   const ready = (document.fonts && document.fonts.load) ? document.fonts.load('12px "JetBrains Mono"') : Promise.resolve();
-  ready.catch(() => {}).then(build);
+  afterIntro(() => ready.catch(() => {}).then(build));
   let lz; window.addEventListener('resize', () => { clearTimeout(lz); lz = setTimeout(() => { build(); if (full) trad = Math.hypot(w, h) * 1.2; kick(); }, 200); });
 
   // One-time "hey, look" demo when the portrait first appears.
