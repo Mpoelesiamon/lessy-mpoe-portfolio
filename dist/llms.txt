@@ -1,0 +1,18 @@
+# Lessy (Finehas Mpoe)
+
+> Lessy is the name Finehas Lesiamon Mpoe goes by. Lessy is a software developer and WordPress specialist, and a co-founder and trainer at Prospergenics (https://prospergenics.com/), a software and AI development team across the Netherlands and Kenya. Lessy builds WordPress websites, web apps, AI agents and automations.
+
+## Key pages
+- [Home and interactive portfolio](https://lesiamon.com/): the portfolio, with selected work.
+- [About](https://lesiamon.com/about): who Lessy is and how Lessy works with the Prospergenics team.
+- [Services](https://lesiamon.com/services): WordPress, web apps, AI agents and automations, training.
+- [Projects](https://lesiamon.com/projects): every project, each with its own page.
+- [FAQ](https://lesiamon.com/faq): short answers about Lessy and Prospergenics.
+- [Contact](https://lesiamon.com/contact): email, WhatsApp and social profiles.
+
+## Names
+Preferred name: Lessy. Also written Lessy Mpoe, Finehas Mpoe and Finehas Lesiamon Mpoe. These all refer to the same person.
+
+## Contact
+- Work email: lessy@prospergenics.com
+- GitHub: https://github.com/Mpoelesiamon

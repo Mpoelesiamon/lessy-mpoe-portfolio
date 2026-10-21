@@ -109,9 +109,9 @@ test('the web manifest only points at icons that exist', async () => {
 test('every redirect in vercel.json lands on a real section or project', async () => {
   const cfg = JSON.parse(await readFile(path.join(DIST, '..', 'vercel.json'), 'utf8'));
   const ids = ['work', 'index', 'journey', 'about', 'contact'];
-  for (const r of cfg.redirects) {
+  for (const r of cfg.redirects.filter(x => !x.has)) {
     const m = /^\/#([a-z]+)$/.exec(r.destination);
     if (m) assert.ok(ids.includes(m[1]) && html.includes(`id="${m[1]}"`), `redirect ${r.source} points at a missing section ${r.destination}`);
-    else assert.match(r.destination, /^(https:\/\/|\/#project=:id$|\/$)/, `odd redirect target: ${r.destination}`);
+    else assert.match(r.destination, /^(https:\/\/|\/projects\/:id$|\/about$|\/services$|\/$)/, `odd redirect target: ${r.destination}`);
   }
 });

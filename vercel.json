@@ -7,33 +7,24 @@
   "cleanUrls": true,
   "redirects": [
     {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.lesiamon.com"
+        }
+      ],
+      "destination": "https://lesiamon.com/$1",
+      "permanent": true
+    },
+    {
       "source": "/work",
       "destination": "/#work",
       "permanent": false
     },
     {
-      "source": "/projects",
-      "destination": "/#index",
-      "permanent": false
-    },
-    {
-      "source": "/projects/:id",
-      "destination": "/#project=:id",
-      "permanent": false
-    },
-    {
       "source": "/work/:id",
-      "destination": "/#project=:id",
-      "permanent": false
-    },
-    {
-      "source": "/about",
-      "destination": "/#about",
-      "permanent": false
-    },
-    {
-      "source": "/contact",
-      "destination": "/#contact",
+      "destination": "/projects/:id",
       "permanent": false
     },
     {
@@ -49,6 +40,26 @@
     {
       "source": "/portfolio",
       "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/cv",
+      "destination": "/about",
+      "permanent": false
+    },
+    {
+      "source": "/resume",
+      "destination": "/about",
+      "permanent": false
+    },
+    {
+      "source": "/hire",
+      "destination": "/services",
+      "permanent": false
+    },
+    {
+      "source": "/hire-me",
+      "destination": "/services",
       "permanent": false
     },
     {

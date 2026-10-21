@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 const DIST = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'dist');
 const KB = 1024;
-const LIMITS = { 'index.html': 26 * KB, 'styles.css': 40 * KB, 'app.js': 36 * KB, 'hero.js': 16 * KB, 'landing.js': 10 * KB, '404.js': 4 * KB, 'projects.js': 70 * KB, 'socials.js': 8 * KB };
+const LIMITS = { 'index.html': 32 * KB, 'styles.css': 46 * KB, 'page.js': 4 * KB, 'app.js': 36 * KB, 'hero.js': 16 * KB, 'landing.js': 10 * KB, '404.js': 4 * KB, 'projects.js': 70 * KB, 'socials.js': 8 * KB };
 const IMAGE_LIMIT = 450 * KB;     // any single image
 const TOTAL_LIMIT = 2.6 * 1024 * KB;
 

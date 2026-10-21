@@ -10,7 +10,7 @@ const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'dist
 const PORT = Number(process.env.PORT || 4173);
 // Apply the same response headers as production (vercel.json), so the CSP is tested locally too.
 const RULES = JSON.parse(readFileSync(path.join(ROOT, '..', 'vercel.json'), 'utf8')).headers.map(r => ({ re: new RegExp(`^${r.source}$`), headers: Object.fromEntries(r.headers.map(h => [h.key, h.value])) }));
-const REDIRECTS = JSON.parse(readFileSync(path.join(ROOT, '..', 'vercel.json'), 'utf8')).redirects.map(r => ({ re: new RegExp(`^${r.source.replace(/:([a-z]+)/g, '(?<$1>[^/]+)')}$`), to: r.destination, code: r.permanent ? 308 : 307 }));
+const REDIRECTS = JSON.parse(readFileSync(path.join(ROOT, '..', 'vercel.json'), 'utf8')).redirects.filter(r => !r.has).map(r => ({ re: new RegExp(`^${r.source.replace(/:([a-z]+)/g, '(?<$1>[^/]+)')}$`), to: r.destination, code: r.permanent ? 308 : 307 }));
 const redirectFor = p => { for (const r of REDIRECTS) { const m = r.re.exec(p); if (m) return { code: r.code, to: r.to.replace(/:([a-z]+)/g, (_, k) => m.groups[k]) }; } };
 const prodHeaders = p => Object.assign({}, ...RULES.filter(r => r.re.test(p)).map(r => r.headers));
 const TYPES = {
@@ -25,6 +25,7 @@ http.createServer(async (req, res) => {
     const redirect = redirectFor(p);
     if (redirect) { res.writeHead(redirect.code, { Location: redirect.to }).end(); return; }
     if (p.endsWith('/')) p += 'index.html';
+    else if (!path.extname(p)) p += '.html';              // cleanUrls: /about serves about.html
     const file = path.normalize(path.join(ROOT, p));
     if (!file.startsWith(ROOT)) { res.writeHead(403).end('Forbidden'); return; }
     if (!(await stat(file)).isFile()) throw new Error('not a file');

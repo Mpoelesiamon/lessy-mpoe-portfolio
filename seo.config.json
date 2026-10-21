@@ -1,0 +1,5 @@
+{
+  "_comment": "Paste the verification codes from Google Search Console and Bing Webmaster Tools here, then run: npm run pages",
+  "googleVerification": "",
+  "bingVerification": ""
+}

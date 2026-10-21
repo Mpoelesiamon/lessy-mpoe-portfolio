@@ -38,3 +38,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md): branches, checks, pull requests, deployi
 - The contact links are plain `mailto:` links. They also copy the address, in case no mail app is set up.
 - Project screenshots are regenerated with `npm run capture`. Projects without a public site use a designed cover.
 - Repository: https://github.com/Mpoelesiamon/lessy-mpoe-portfolio
+
+## Search presence
+
+`npm run pages` regenerates the content pages, sitemap and `llms.txt`; `npm run indexnow` notifies search engines after a deploy. Details and the off-site checklist: [docs/SEO.md](docs/SEO.md).

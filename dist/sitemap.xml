@@ -1,4 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://lesiamon.com/</loc><lastmod>2026-10-21</lastmod><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://lesiamon.com/about</loc><lastmod>2026-10-21</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lesiamon.com/services</loc><lastmod>2026-10-21</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lesiamon.com/projects</loc><lastmod>2026-10-21</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lesiamon.com/faq</loc><lastmod>2026-10-21</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lesiamon.com/contact</loc><lastmod>2026-10-21</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://lesiamon.com/projects/bugatti</loc><lastmod>2026-10-21</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lesiamon.com/projects/prosper</loc><lastmod>2026-10-21</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lesiamon.com/projects/persart</loc><lastmod>2026-10-21</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lesiamon.com/projects/maximillar</loc><lastmod>2026-10-21</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lesiamon.com/projects/jengo</loc><lastmod>2026-10-21</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lesiamon.com/projects/nashipae</loc><lastmod>2026-10-21</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lesiamon.com/projects/brand</loc><lastmod>2026-10-21</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lesiamon.com/projects/art</loc><lastmod>2026-10-21</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lesiamon.com/projects/rena</loc><lastmod>2026-10-21</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lesiamon.com/projects/perridon</loc><lastmod>2026-10-21</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lesiamon.com/projects/vloer</loc><lastmod>2026-10-21</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lesiamon.com/projects/hazina</loc><lastmod>2026-10-21</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lesiamon.com/projects/trndy</loc><lastmod>2026-10-21</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lesiamon.com/projects/vera</loc><lastmod>2026-10-21</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lesiamon.com/projects/ai-explorer</loc><lastmod>2026-10-21</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lesiamon.com/projects/dev-ai</loc><lastmod>2026-10-21</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lesiamon.com/projects/opus</loc><lastmod>2026-10-21</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lesiamon.com/projects/bridge</loc><lastmod>2026-10-21</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lesiamon.com/projects/grafo</loc><lastmod>2026-10-21</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lesiamon.com/projects/sprout</loc><lastmod>2026-10-21</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lesiamon.com/projects/devgenix</loc><lastmod>2026-10-21</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lesiamon.com/projects/johny</loc><lastmod>2026-10-21</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lesiamon.com/projects/autopedia</loc><lastmod>2026-10-21</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lesiamon.com/projects/ireport</loc><lastmod>2026-10-21</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lesiamon.com/projects/qr</loc><lastmod>2026-10-21</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lesiamon.com/projects/lunar</loc><lastmod>2026-10-21</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://lesiamon.com/privacy</loc><lastmod>2026-10-21</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>
